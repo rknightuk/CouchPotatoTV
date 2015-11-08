@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+	
+		<title>CouchPotatoTV — Couch Potato for Apple TV</title>
+		
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1">
+		<link rel="shortcut icon" href="img/favicon.ico">
+		<link rel="stylesheet" href="gridism.css">
+		<link rel="stylesheet" href="style.css">
+
+		<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700' rel='stylesheet' type='text/css'>
+		
+	</head>
+	
+	<body class="wrap">
+
+		<header class="grid">
+
+			<h1>CouchPotatoTV</h1>
+
+			<a target="_blank" href="img/screenshot.png"><img src="img/screenshot.png"></a>
+
+			<p>CouchPotatoTV is a <a href="https://couchpota.to/">Couch Potato</a> client for Apple TV.</p>
+			
+		</header>
+
+		<section class="grid" id="installation">
+
+			<h2>Installation</h2>
+
+			<p>This installation assumes a few things:
+
+			<ul>
+				<li>You already have Couch Potato installed — CouchPotatoTV is just a way to interact with Couch Potato and not a downloader.</li>
+				<li>You're confortable with setting up a local PHP server.</li>
+				<li>You have a free <a href="https://developer.apple.com/">Apple Developer account</a></li>
+			</ul>
+			
+			<p>There are two components required for it to work: <a href="https://github.com/rmlewisuk/CouchPotatoTV-Client">the client app</a> and <a href="https://github.com/rmlewisuk/CouchPotatoTV-Server">the server</a>. Both of these require some confirguration before installing them.</p>
+
+			<h3 id="server">Server</h3>
+
+			<p>The server is a PHP and Javascript app that returns <a href="https://developer.apple.com/library/prerelease/tvos/documentation/LanguagesUtilities/Conceptual/ATV_Template_Guide/TextboxTemplate.html#//apple_ref/doc/uid/TP40015064-CH2-SW8">TVML templates</a> to the Apple TV.</p>
+
+			<p>
+				<a class="button" href="https://github.com/rmlewisuk/CouchPotatoTV-Server/archive/master.zip">Download .zip</a>
+				<a class="button" href="https://github.com/rmlewisuk/CouchPotatoTV-Server">Clone on GitHub</a>
+			</p>
+
+			<p>There are example files included in the source (<code>/config.example.php</code> and <code>/js/Config.example.js</code>). Copy these example files and rename them <code>/config.php</code> and <code>/js/Config.js</code> respectively and update the variables for your setup.</p>
+
+			<p>
+
+				<ul>
+					<li><code>$clientDomain</code> - The domain or IP address of server itself, e.g. <code>http://ip-address/cptv/</code></li>
+					<li><code>$CPDomain</code> - The domain or IP addresss of your Couch Potato installation, usually <code>http://ip-address:5050</code></li>
+					<li><code>$CPApiKey</code> - Your Couch Potato API key, found in settings (show advanced)</li>
+				</ul>
+			</p>
+
+			<p><small><strong>Note:</strong> You cannot use <code>localhost</code> as the IP address, because the Apple TV client will not be running on the same machine as Couch Potato or the server. Get the IP address of the machine Couch Potato and the server are running from your computer's network settings.</small></p>
+
+			<p>
+				<ol>
+					<li>Download and unzip (or clone from GitHub) to wherever your local server is serving files from.</li>
+					<li>Navigate to <code>yourserver/wanted.php</code> in your browser and you should see output similar to the screenshot below.</li>
+				</ol>
+
+				<img src="img/server-output.png">
+			</p>
+
+			<h3 id="server">tvOS Client</h3>
+
+			<p>The client is a Swift application that connects to the server to retrieve the templates.</p>
+
+			<p>
+				<a class="button" href="https://github.com/rmlewisuk/CouchPotatoTV-Client/archive/master.zip">Download .zip</a>
+				<a class="button" href="https://github.com/rmlewisuk/CouchPotatoTV-Client">Clone on GitHub</a>
+			</p>
+
+			<p>There is only one configuration file for the client: <code>AppDelegate.swift</code>. Change the line <code>static let TVBaseURL = "http://localhost:9001/"</code> to point to the server IP address you setup in the previous steps.</p>
+
+			<p>To install the app to your Apple TV use the following steps:
+
+			<ol>
+				<li>Connect your Apple TV to your Mac</li>
+				<li>Open the project in Xcode</li>
+				<li>Change the build identifier name to something unique (e.g. add your name to the end of the name).</li>
+				<li>In the drop-down box in the toolbar, select your Apple TV</li>
+				<li>Press the "play" button to run the app.</li>
+				<li>You may be asked to select a development login for provisioning. Choose your Apple developer account for the dropdown.</li>
+				<li>Once installed, you can quit Xcode and disconnect your Apple TV.</li>
+			</ol>
+
+			<img src="img/top-shelf.png">
+
+		</section>
+
+		<footer class="grid">
+			<p>All code <a href="http://rmlewisuk.mit-license.org/">MIT license</a> | Made by <a href="http://robblewis.me">Robb Lewis</a></p>
+		</footer>
+
+	</body>
+	
+</html>
